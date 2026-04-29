@@ -6,118 +6,121 @@
 
 body {
     background: #1D202B;
-    color: #050505;
+    /* Cambiado a blanco para que el texto sea legible sobre el fondo oscuro */
+    color: #FFFFFF; 
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
 }
 
 .contenedor {
-    width: 450%;
-    max-width: 1000px;
+    width: 95%; /* Ajustado de 450% a 95% */
+    max-width: 1400px; /* Aumentado para dar espacio a los 5 cuadros */
     margin: auto;
-    padding: 80px 0;
+    padding: 60px 0;
 
     display: grid;
-    /* Las tarjetas ocupan 2 partes y el banner 1 parte */
-    grid-template-columns: 3fr 1fr; 
-    gap: 20px;
+    /* Mantenemos la estructura de Main Content + Sidebar */
+    grid-template-columns: fr 1fr; 
+    gap: 40px; /* Espaciado mayor entre secciones */
 }
 
 .contenedor-conciertos {
     display: grid;
-    /* 2 columnas para las tarjetas dentro de su sección */
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    /* Creamos un grid que se adapta: 3 columnas arriba, 2 abajo (o según quepan) */
+    /* Para forzar 5 cuadros en una organización limpia: */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px; /* Espacio generoso entre tarjetas */
 }
 
 .card {
-    border-radius: 15px;
-    min-height: 400px; /* Tamaño de la imagen ajustable aquí */
-    padding: 20px;     /* Espacio interno reducido para que no tape la imagen */
+    border-radius: 20px;
+    min-height: 350px;
+    padding: 30px;
     display: flex;
-    align-items: flex-end; /* Mueve el texto a la parte inferior de la imagen */
+    align-items: flex-end;
     background-size: cover;
     background-position: center;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* Overlay para mejorar legibilidad del texto */
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4);
 }
 
 .card:hover {
-    transform: scale(1.02);
-}
-
-.card .textos {
-    width: 100%;
+    transform: translateY(-10px);
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.2), 0 15px 30px rgba(0,0,0,0.5);
 }
 
 .card .textos h3 {
-    font-size: 22px; /* Tamaño del título del concierto */
-    margin-bottom: 5px;
+    font-size: 24px;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .card .textos p {
-    font-size: 14px; /* Tamaño de la fecha */
-    opacity: 0.8;
+    font-size: 15px;
+    color: #FFD600; /* Color de realce para la fecha */
+    font-weight: bold;
 }
 
 .banner {
+    background: #252936;
     border-radius: 20px;
-    text-align: center;
-    padding: 40px 20px;
-    background-size: cover;
-    background-position: center;
+    padding: 40px 25px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-self: start; /* Evita que el banner se estire verticalmente */
+    position: sticky;
+    top: 20px;
 }
 
 .banner h3 {
-    font-size: 28px; /* Tamaño título banner */
+    font-size: 24px;
+    color: #FFD600;
     margin-bottom: 20px;
 }
 
-.banner-ul {
-    list-style: none;
-    margin: 30px 0;
-}
-
 .banner-ul-li {
-    margin: 15px 0; /* Espaciado entre bandas ajustado */
-    font-weight: bold;
-    font-size: 18px; /* Tamaño letra nombres de bandas */
+    margin: 20px 0;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
 }
 
 .boton {
     background: #FFD600;
-    color: #000;
+    color: #1D202B;
     width: 100%;
     font-weight: bold;
-    font-size: 16px;
-    padding: 15px;
+    text-transform: uppercase;
+    padding: 18px;
     border: none;
-    border-radius: 50px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: 0.3s;
 }
 
 .boton:hover {
-    background: #e6c100;
+    background: #FFFFFF;
+    transform: scale(1.05);
 }
 
 /* --- RESPONSIVE --- */
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1100px) {
     .contenedor {
-        grid-template-columns: 1fr; /* Todo en una columna en tablets */
+        grid-template-columns: 1fr; /* Sidebar se va abajo */
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
     .contenedor-conciertos {
-        grid-template-columns: 1fr; /* Tarjetas una debajo de otra en móvil */
+        /* En móviles, los cuadros ocupan todo el ancho */
+        grid-template-columns: 1fr;
     }
-    .card {
-        min-height: 200px;
+    .contenedor {
+        padding: 40px 20px;
     }
 }
