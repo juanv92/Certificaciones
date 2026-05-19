@@ -1,3 +1,4 @@
+/* --- RESET GENERAL --- */
 * {
     padding: 0;
     margin: 0;
@@ -6,32 +7,39 @@
 
 body {
     background: #1D202B;
-    /* Cambiado a blanco para que el texto sea legible sobre el fondo oscuro */
     color: #FFFFFF; 
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
 }
 
+/* --- CONTENEDOR PRINCIPAL (Grid de Página) --- */
 .contenedor {
-    width: 95%; /* Ajustado de 450% a 95% */
-    max-width: 1400px; /* Aumentado para dar espacio a los 5 cuadros */
+    width: 95%; 
+    max-width: 1400px; 
     margin: auto;
     padding: 60px 0;
 
     display: grid;
-    /* Mantenemos la estructura de Main Content + Sidebar */
-    grid-template-columns: fr 1fr; 
-    gap: 40px; /* Espaciado mayor entre secciones */
+    /* Estructura: Contenido Principal + Sidebar */
+    grid-template-columns: 4fr 1fr; 
+    gap: 25px; 
+    
+    /* Centra los elementos del grid horizontalmente si sobra espacio */
+    justify-content: center; 
 }
 
+/* --- SECCIÓN DE TARJETAS (Fila de 4 Cuadros) --- */
 .contenedor-conciertos {
     display: grid;
-    /* Creamos un grid que se adapta: 3 columnas arriba, 2 abajo (o según quepan) */
-    /* Para forzar 5 cuadros en una organización limpia: */
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px; /* Espacio generoso entre tarjetas */
+    /* Fuerza exactamente 4 columnas del mismo tamaño */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+    
+    /* Asegura que el grupo de tarjetas esté centrado en su espacio */
+    justify-content: center; 
 }
 
+/* --- TARJETAS (Cards) --- */
 .card {
     border-radius: 20px;
     min-height: 350px;
@@ -53,6 +61,10 @@ body {
     box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.2), 0 15px 30px rgba(0,0,0,0.5);
 }
 
+.card .textos {
+    width: 100%; /* Para que el texto se alinee bien internamente */
+}
+
 .card .textos h3 {
     font-size: 24px;
     margin-bottom: 8px;
@@ -61,25 +73,28 @@ body {
 
 .card .textos p {
     font-size: 15px;
-    color: #FFD600; /* Color de realce para la fecha */
+    color: #FFD600; 
     font-weight: bold;
 }
 
+/* --- SIDEBAR / BANNER --- */
 .banner {
     background: #252936;
     border-radius: 20px;
     padding: 40px 25px;
     display: flex;
     flex-direction: column;
-    align-self: start; /* Evita que el banner se estire verticalmente */
+    align-self: start; 
     position: sticky;
     top: 20px;
+    width: 100%; /* Ocupa todo el ancho de su columna */
 }
 
 .banner h3 {
     font-size: 24px;
     color: #FFD600;
     margin-bottom: 20px;
+    text-align: center; /* Título del banner centrado */
 }
 
 .banner-ul-li {
@@ -87,8 +102,11 @@ body {
     font-size: 16px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 10px;
+    text-align: center; /* Elementos de la lista centrados */
+    list-style: none;
 }
 
+/* --- BOTONES --- */
 .boton {
     background: #FFD600;
     color: #1D202B;
@@ -100,6 +118,7 @@ body {
     border-radius: 12px;
     cursor: pointer;
     transition: 0.3s;
+    text-align: center;
 }
 
 .boton:hover {
@@ -107,18 +126,35 @@ body {
     transform: scale(1.05);
 }
 
-/* --- RESPONSIVE --- */
+/* --- RESPONSIVE / ADAPTABILIDAD --- */
 
-@media screen and (max-width: 1100px) {
-    .contenedor {
-        grid-template-columns: 1fr; /* Sidebar se va abajo */
+/* Pantallas medianas (Laptops pequeñas o monitores estrechos) */
+@media screen and (max-width: 1300px) {
+    .contenedor-conciertos {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas centradas */
     }
 }
 
-@media screen and (max-width: 700px) {
+/* Tablets (El banner lateral se mueve hacia abajo del contenido y se centra) */
+@media screen and (max-width: 992px) {
+    .contenedor {
+        grid-template-columns: 1fr; 
+        justify-items: center; /* Centra el contenido y el banner de forma global */
+    }
+    
+    .banner {
+        max-width: 500px; /* Evita que el banner se vuelva gigante al quedar abajo */
+        margin: auto;
+    }
+}
+
+/* Teléfonos móviles */
+@media screen and (max-width: 600px) {
     .contenedor-conciertos {
-        /* En móviles, los cuadros ocupan todo el ancho */
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; 
+        width: 100%;
+        max-width: 400px; /* Limita el ancho de la tarjeta en móvil para que luzca estética */
+        margin: auto;
     }
     .contenedor {
         padding: 40px 20px;
